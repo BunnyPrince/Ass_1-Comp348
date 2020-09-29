@@ -12,5 +12,5 @@
 - display the average salary and display total number of employees on input file 
 
 
-##Update (Jana) sep 29th, 2020
+## Update (Jana) sep 29th, 2020:
 - i corrected the issue with comparator by using lambda expresion 
