@@ -14,3 +14,4 @@
 
 ## Update (Jana) sep 29th, 2020:
 - i corrected the issue with comparator by using lambda expresion 
+- Sorted the salary with collectors.groupingBy()
