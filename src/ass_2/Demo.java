@@ -5,13 +5,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -49,7 +53,11 @@ public class Demo {
 			List<Employee> employeesObj = new ArrayList<Employee>();
 			info.forEach((n) -> employeesObj.add((Employee)Employee.parse(n)));
 			
-			employeesObj.forEach(System.out::println);
+//			employeesObj.forEach(System.out::println);
+			
+			
+			
+			
 //			for(int i = 0; i< employeesObj.size(); i++) {
 //				System.out.println(employeesObj.get(i));
 //			}
@@ -68,14 +76,21 @@ public class Demo {
 //			};
 //			Collections.sort(employeesObj, sortId);
 			
+//			
+			
+			
+			
+			
+			
+			
 //			(Jana) change it to lambda expression 
 			Comparator<Employee> sortId = ( e1,  e2) ->
-				 {
+			{
 					if(e1.getId() < e2.getId())
 						return -1;
 					if(e1.getId() > e2.getId())
 						return 1;
-					return 0;
+					return 0;	
 			};
 			Collections.sort(employeesObj, sortId);
 			
@@ -93,10 +108,7 @@ public class Demo {
 			
 //			sorted to first name
 //			(Jana) change it to lambda expression 
-			Comparator<Employee> sortFirst = ( e1,  e2) ->
-			 {
-					return e1.getFirstName().compareTo(e2.getFirstName());
-			};
+			Comparator<Employee> sortFirst = ( e1,  e2) -> {return e1.getFirstName().compareTo(e2.getFirstName());};
 			Collections.sort(employeesObj, sortFirst);
 			System.out.println("\n\nOrder to First name:");
 			// (noah) idem to sort by id modification
@@ -113,10 +125,7 @@ public class Demo {
 			
 //			sorted to last name
 //			(Jana) change it to lambda expression 
-			Comparator<Employee> sortLast = ( e1,  e2) ->
-			 {
-					return e1.getLastName().compareTo(e2.getLastName());
-			};
+			Comparator<Employee> sortLast = ( e1,  e2) -> {return e1.getLastName().compareTo(e2.getLastName());};
 			Collections.sort(employeesObj, sortLast);
 			System.out.println("\n\nOrder to Last name:");
 			// (noah) idem modication
@@ -126,13 +135,59 @@ public class Demo {
 			
 //			sorted to salary
 //			(Jana) change it to lambda expression 
-			Comparator<Employee> sortSalary = ( e1,  e2) ->
-			 {
-					return e1.getSalary().compareTo(e2.getSalary());
-			};
+			Comparator<Employee> sortSalary = ( e1,  e2) ->{return e1.getSalary().compareTo(e2.getSalary());};
 			Collections.sort(employeesObj, sortSalary);
 			System.out.println("\n\nOrder to salary:");
 			employeesObj.forEach(x -> System.out.println(x));
+			
+			
+			System.out.println("\n\n");
+			
+			
+			
+			
+			
+			Map<BigDecimal, Double> bySalary = employeesObj.stream().collect(Collectors.groupingBy(e -> {
+				BigDecimal salary = ((Employee)e).getSalary();
+				BigDecimal small = new BigDecimal(25000.00);
+				BigDecimal medium = new BigDecimal(40000.00);
+				BigDecimal big = new BigDecimal(70000.00);
+				
+				if(salary.compareTo(small) == -1) {
+					return small;
+				}
+				if(salary.compareTo(medium) == -1 && salary.compareTo(small) == 1) {
+					return big;
+				}
+				return medium;
+				} 
+			, Collectors.averagingDouble(e -> {
+				BigDecimal salary = ((Employee)e).getSalary();
+				String s = salary +"";
+				return Double.parseDouble(s);
+				})));
+			bySalary.entrySet().stream().sorted(Map.Entry.<BigDecimal, Double>comparingByValue().reversed())
+			.forEachOrdered(System.out::println);
+			
+			
+			Map<BigDecimal, Long> bySalary2 = employeesObj.stream().collect(Collectors.groupingBy(e -> {
+				BigDecimal salary = ((Employee)e).getSalary();
+				BigDecimal small = new BigDecimal(25000.00);
+				BigDecimal medium = new BigDecimal(40000.00);
+				BigDecimal big = new BigDecimal(70000.00);
+				
+				if(salary.compareTo(small) == -1) {
+					return small;
+				}
+				if(salary.compareTo(medium) == -1 && salary.compareTo(small) == 1) {
+					return big;
+				}
+				return medium;
+				} 
+			, Collectors.counting()));
+			bySalary2.entrySet().stream().sorted(Map.Entry.<BigDecimal, Long>comparingByValue().reversed())
+			.forEachOrdered(System.out::println);
+			
 			
 			// (noah)!!!! TO DELETE : Following for-loop since not allowed per asm instruction
 //			for(int i = 0; i< employeesObj.size(); i++) {
