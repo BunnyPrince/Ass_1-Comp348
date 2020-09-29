@@ -49,23 +49,36 @@ public class Demo {
 			List<Employee> employeesObj = new ArrayList<Employee>();
 			info.forEach((n) -> employeesObj.add((Employee)Employee.parse(n)));
 			
-			for(int i = 0; i< employeesObj.size(); i++) {
-				System.out.println(employeesObj.get(i));
-			}
-			
+			employeesObj.forEach(System.out::println);
+//			for(int i = 0; i< employeesObj.size(); i++) {
+//				System.out.println(employeesObj.get(i));
+//			}
+//			
 			
 //			sorted to id
-			Comparator<Employee> sortId = new Comparator<Employee>() {
-				@Override
-				public int compare(Employee e1, Employee e2) {
+//			Comparator<Employee> sortId = new Comparator<Employee>() {
+//				@Override
+//				public int compare(Employee e1, Employee e2) {
+//					if(e1.getId() < e2.getId())
+//						return -1;
+//					if(e1.getId() > e2.getId())
+//						return 1;
+//					return 0;
+//				}
+//			};
+//			Collections.sort(employeesObj, sortId);
+			
+//			(Jana) change it to lambda expression 
+			Comparator<Employee> sortId = ( e1,  e2) ->
+				 {
 					if(e1.getId() < e2.getId())
 						return -1;
 					if(e1.getId() > e2.getId())
 						return 1;
 					return 0;
-				}
 			};
 			Collections.sort(employeesObj, sortId);
+			
 			System.out.println("\n\nOrder to id:");
 			// (noah) modifications on sort by id: vertical display instead of horizontal list
 			// System.out.println(objects.toString());
@@ -79,11 +92,10 @@ public class Demo {
 			
 			
 //			sorted to first name
-			Comparator<Employee> sortFirst = new Comparator<Employee>() {
-				@Override
-				public int compare(Employee e1, Employee e2) {
+//			(Jana) change it to lambda expression 
+			Comparator<Employee> sortFirst = ( e1,  e2) ->
+			 {
 					return e1.getFirstName().compareTo(e2.getFirstName());
-				}
 			};
 			Collections.sort(employeesObj, sortFirst);
 			System.out.println("\n\nOrder to First name:");
@@ -100,11 +112,10 @@ public class Demo {
 			
 			
 //			sorted to last name
-			Comparator<Employee> sortLast = new Comparator<Employee>() {
-				@Override
-				public int compare(Employee e1, Employee e2) {
+//			(Jana) change it to lambda expression 
+			Comparator<Employee> sortLast = ( e1,  e2) ->
+			 {
 					return e1.getLastName().compareTo(e2.getLastName());
-				}
 			};
 			Collections.sort(employeesObj, sortLast);
 			System.out.println("\n\nOrder to Last name:");
@@ -114,11 +125,10 @@ public class Demo {
 			
 			
 //			sorted to salary
-			Comparator<Employee> sortSalary = new Comparator<Employee>() {
-				@Override
-				public int compare(Employee e1, Employee e2) {
+//			(Jana) change it to lambda expression 
+			Comparator<Employee> sortSalary = ( e1,  e2) ->
+			 {
 					return e1.getSalary().compareTo(e2.getSalary());
-				}
 			};
 			Collections.sort(employeesObj, sortSalary);
 			System.out.println("\n\nOrder to salary:");
