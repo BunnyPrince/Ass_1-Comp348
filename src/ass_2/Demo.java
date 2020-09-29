@@ -30,21 +30,27 @@ public class Demo {
 		
 	}
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args){
 		Scanner kb = new Scanner(System.in);
 		System.out.print("Enter the name of the file:");
-		String name = kb.next();
+		// (noah) !!!NOTE!!! Add try catch for file not found error????
+		// !NOTE! Uncomment the following line to allow input (currently commented out for test)
+//		String name = kb.next();
+		String name = "EmployesInformation.txt"; // TO DELETE
 		Stream<String> info;
 		
 		try(BufferedReader br = new BufferedReader(new FileReader(name))){
 			info = br.lines().collect(Collectors.toList()).stream();
 			System.out.println("This file contains: ");
 			
-			List<Employee> objects = new ArrayList<Employee>();
-			info.forEach((n) -> objects.add((Employee)Employee.parse(n)));
+			List<Employee> employeesObj = new ArrayList<Employee>();
+			info.forEach((n) -> employeesObj.add((Employee)Employee.parse(n)));
 			
-			for(int i = 0; i< objects.size(); i++) {
-				System.out.println(objects.get(i));
+			for(int i = 0; i< employeesObj.size(); i++) {
+				System.out.println(employeesObj.get(i));
 			}
 			
 			
@@ -59,9 +65,16 @@ public class Demo {
 					return 0;
 				}
 			};
-			Collections.sort(objects, sortId);
+			Collections.sort(employeesObj, sortId);
 			System.out.println("\n\nOrder to id:");
-			System.out.println(objects.toString());
+			// (noah) modifications on sort by id: vertical display instead of horizontal list
+			// System.out.println(objects.toString());
+			
+			// used method reference here
+			employeesObj.forEach(System.out::println);
+			
+				
+			
 			
 //			sorted to first name
 			Comparator<Employee> sortFirst = new Comparator<Employee>() {
@@ -70,9 +83,11 @@ public class Demo {
 					return e1.getFirstName().compareTo(e2.getFirstName());
 				}
 			};
-			Collections.sort(objects, sortFirst);
+			Collections.sort(employeesObj, sortFirst);
 			System.out.println("\n\nOrder to First name:");
-			System.out.println(objects.toString());
+			// (noah) idem to sort by id modification
+			// System.out.println(employeesObj.toString());
+			employeesObj.forEach(x -> System.out.println(x));
 			
 			
 			
@@ -84,9 +99,11 @@ public class Demo {
 					return e1.getLastName().compareTo(e2.getLastName());
 				}
 			};
-			Collections.sort(objects, sortLast);
+			Collections.sort(employeesObj, sortLast);
 			System.out.println("\n\nOrder to Last name:");
-			System.out.println(objects.toString());
+			// (noah) idem modication
+			// System.out.println(employeesObj.toString());
+			employeesObj.forEach(x -> System.out.println(x));
 			
 			
 //			sorted to salary
@@ -96,11 +113,14 @@ public class Demo {
 					return e1.getSalary().compareTo(e2.getSalary());
 				}
 			};
-			Collections.sort(objects, sortSalary);
+			Collections.sort(employeesObj, sortSalary);
 			System.out.println("\n\nOrder to salary:");
-			for(int i = 0; i< objects.size(); i++) {
-				System.out.println(objects.get(i));
-			}
+			employeesObj.forEach(x -> System.out.println(x));
+			
+			// (noah)!!!! TO DELETE : Following for-loop since not allowed per asm instruction
+//			for(int i = 0; i< employeesObj.size(); i++) {
+//				System.out.println(employeesObj.get(i));
+//			}
 			
 			
 //			 Use at least one method-reference in your code. ********************
