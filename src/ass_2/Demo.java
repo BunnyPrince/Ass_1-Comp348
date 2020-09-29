@@ -70,6 +70,8 @@ public class Demo {
 			// (noah) modifications on sort by id: vertical display instead of horizontal list
 			// System.out.println(objects.toString());
 			
+			
+			
 			// used method reference here
 			employeesObj.forEach(System.out::println);
 			
@@ -88,6 +90,11 @@ public class Demo {
 			// (noah) idem to sort by id modification
 			// System.out.println(employeesObj.toString());
 			employeesObj.forEach(x -> System.out.println(x));
+			
+			
+			// (noah) i tried something here but i dont know how the Array.sort work...
+			// ALSO i think we can use comparator (just not comparable) since it's a functional interface
+			// Arrays.sort(employeesObj, Comparator.comparing(Employee::getId));
 			
 			
 			
@@ -123,7 +130,7 @@ public class Demo {
 //			}
 			
 			
-//			 Use at least one method-reference in your code. ********************
+//			 Use at least one method-reference in your code. (noah) Done, see when sorted by id
 		}
 		
 //		I dont know why it not working ***********************
