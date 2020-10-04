@@ -16,7 +16,7 @@
 - i corrected the issue with comparator by using lambda expresion 
 - Sorted the salary with collectors.groupingBy()
 
-## final edit
+## final edit Oct. 4th, 2020
 - did all the sorting 
 - diplayed all the info of the group with clear informations
 - cleared out all the codes that are not used. 
