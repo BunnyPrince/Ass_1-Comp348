@@ -15,3 +15,8 @@
 ## Update (Jana) sep 29th, 2020:
 - i corrected the issue with comparator by using lambda expresion 
 - Sorted the salary with collectors.groupingBy()
+
+## final edit
+- did all the sorting 
+- diplayed all the info of the group with clear informations
+- cleared out all the codes that are not used. 
